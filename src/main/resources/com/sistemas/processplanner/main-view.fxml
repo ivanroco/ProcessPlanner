@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sistemas.processplanner.MainController">
+    <left>
+        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="btnProcess" layoutX="40.0" layoutY="71.0" mnemonicParsing="false" onAction="#gnerateProcess" prefHeight="30.0" prefWidth="127.0" text="Generar proceso" textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="71.0" />
+                <ComboBox fx:id="cmbxPlanner" layoutX="29.0" layoutY="163.0" onAction="#selectPlanner" prefWidth="150.0" promptText="Panificador" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="163.0" />
+                <Button fx:id="btnPlay" layoutX="69.0" layoutY="288.0" mnemonicParsing="false" onAction="#play" text="Iniciar" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="73.0" AnchorPane.topAnchor="288.0" />
+            </children>
+        </AnchorPane>
+    </left>
+    <center>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <TableView fx:id="tblProcess" layoutX="19.0" layoutY="40.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="532.0" prefWidth="565.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="40.0">
+                    <columns>
+                        <TableColumn fx:id="column1" editable="false" prefWidth="75.0" text="N°" />
+                        <TableColumn fx:id="column2" editable="false" prefWidth="75.0" text="Proceso" />
+                        <TableColumn fx:id="column3" editable="false" prefWidth="75.0" text="Id" />
+                        <TableColumn fx:id="column4" editable="false" prefWidth="75.0" text="Memoria" />
+                        <TableColumn fx:id="column5" editable="false" prefWidth="75.0" text="Prioridad" />
+                        <TableColumn fx:id="column6" editable="false" prefWidth="75.0" text="Rafaga" />
+                        <TableColumn fx:id="column7" editable="false" prefWidth="75.0" text="Tiempo de llegada" />
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                    </columnResizePolicy>
+                </TableView>
+            </children>
+        </AnchorPane>
+    </center>
+</BorderPane>
