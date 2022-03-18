@@ -1,5 +1,6 @@
-package com.sistemas.processplanner;
+package com.sistemas.processplanner.planner;
 
+import com.sistemas.processplanner.Proceso;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

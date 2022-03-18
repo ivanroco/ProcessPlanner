@@ -1,6 +1,10 @@
 package com.sistemas.processplanner;
 
-import genprocess.ProcessGenerator;
+import com.sistemas.processplanner.planner.ShortestJobFirst;
+import com.sistemas.processplanner.genprocess.ProcessGenerator;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,19 +12,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
-    int numProcess;
-    String name;
-    int identified;
-    float memory;
-    String priority;
-    int burst;
-    int inputTime;
     @FXML
     private Button btnPlay;
     @FXML
@@ -44,18 +42,13 @@ public class MainController implements Initializable {
     @FXML
     private TableView<Proceso> tblProcess;
     private ObservableList<Proceso> observableListProcess;
+    Timeline timeline;
 
     @FXML
     void gnerateProcess(ActionEvent event) {
         ProcessGenerator.generator();
-        numProcess = ProcessGenerator.getCount();
-        name = ProcessGenerator.getName();
-        identified = ProcessGenerator.getIdentified();
-        memory = ProcessGenerator.getMemory();
-        priority = ProcessGenerator.getPriority();
-        burst = ProcessGenerator.getBurst();
-        inputTime = ProcessGenerator.getInputTime();
-        Proceso process = new Proceso(numProcess, name, identified, memory, priority, burst, inputTime);
+        Proceso process = new Proceso(ProcessGenerator.getCount(), ProcessGenerator.getName(), ProcessGenerator.getIdentified(),
+                ProcessGenerator.getMemory(), ProcessGenerator.getPriority(), ProcessGenerator.getBurst(), ProcessGenerator.getInputTime());
         observableListProcess.add(process);
         tblProcess.setItems(observableListProcess);
     }
@@ -64,9 +57,20 @@ public class MainController implements Initializable {
     void play(ActionEvent event) {
         if(!cmbxPlanner.getItems().isEmpty()){
             if (!tblProcess.getItems().isEmpty()){
-                observableListProcess.remove(0);
+                ObservableList<Proceso> aux = observableListProcess;
+                for(int i = 0; i < aux.size(); i++){
+                    timeline = new Timeline(new KeyFrame(Duration.seconds(observableListProcess.get(i).getBurst()), this::animation));
+                    timeline.play();
+                }
             }
         }
+    }
+
+    private void animation(ActionEvent actionEvent) {
+        observableListProcess.remove(0);
+        tblProcess.refresh();
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.setDelay(Duration.seconds(2));
     }
 
     @FXML
@@ -94,5 +98,6 @@ public class MainController implements Initializable {
         column6.setCellValueFactory(new PropertyValueFactory<>("burst"));
         column7.setCellValueFactory(new PropertyValueFactory<>("inputTime"));
     }
+
 }
 

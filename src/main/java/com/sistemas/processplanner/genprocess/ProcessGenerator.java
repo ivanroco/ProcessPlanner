@@ -1,4 +1,4 @@
-package genprocess;
+package com.sistemas.processplanner.genprocess;
 public class ProcessGenerator {
 
     static String name;
