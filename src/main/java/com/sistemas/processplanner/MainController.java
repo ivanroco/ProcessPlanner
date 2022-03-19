@@ -59,7 +59,6 @@ public class MainController implements Initializable {
             if (!tblProcess.getItems().isEmpty()){
                 ObservableList<Proceso> aux = observableListProcess;
                 for(int i = 0; i < aux.size(); i++){
-                    timeline = new Timeline(new KeyFrame(Duration.seconds(observableListProcess.get(i).getBurst()), this::animation));
                     timeline.play();
                 }
             }
@@ -67,10 +66,13 @@ public class MainController implements Initializable {
     }
 
     private void animation(ActionEvent actionEvent) {
-        observableListProcess.remove(0);
-        tblProcess.refresh();
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.setDelay(Duration.seconds(2));
+        if(observableListProcess.isEmpty()){
+            timeline.stop();
+        }else {
+            timeline.setDelay(Duration.seconds(observableListProcess.get(0).getBurst()));
+            observableListProcess.remove(0);
+            tblProcess.refresh();
+        }
     }
 
     @FXML
@@ -97,6 +99,8 @@ public class MainController implements Initializable {
         column5.setCellValueFactory(new PropertyValueFactory<>("priority"));
         column6.setCellValueFactory(new PropertyValueFactory<>("burst"));
         column7.setCellValueFactory(new PropertyValueFactory<>("inputTime"));
+        timeline  = new Timeline(new KeyFrame(Duration.seconds(2),this::animation));
+        timeline.setCycleCount(Animation.INDEFINITE);
     }
 
 }
