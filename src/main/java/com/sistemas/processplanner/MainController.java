@@ -9,11 +9,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -54,9 +58,15 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void play(ActionEvent event) {
+    void play(ActionEvent event) throws IOException {
         if(!cmbxPlanner.getItems().isEmpty()){
             if (!tblProcess.getItems().isEmpty()){
+                FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("second-view.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Memoria");
+                stage.showAndWait();
                 ObservableList<Proceso> aux = observableListProcess;
                 for(int i = 0; i < aux.size(); i++){
                     timeline.play();
